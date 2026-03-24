@@ -55,7 +55,7 @@ export const loginUser=async(req,res)=>{
         }
         const token=jwt.sign(
             {
-                id:user.userId,
+                id:user._id,
                 role:user.role
             },
             process.env.JWT_SECRET,
@@ -96,9 +96,9 @@ export const verifyOtp=async(req,res)=>{
         const {email,otp}=req.body;
         const record=getOtp(email);
         if(!record){
-            return res.status(400).json({message:"OT not found"});
+            return res.status(400).json({message:"OTP not found"});
         }
-        if(record.expire<Date.now){
+        if(record.expire<Date.now()){
             deleteOtp(email);
             return res.status(400).json({message:"OTP expired"});
         }
@@ -128,7 +128,7 @@ export const resetPassword=async(req,res)=>{
         deleteOtp(email);
         res.json({message:"Password reset successful"});
     }
-    catch(eror){
+    catch(error){
         res.status(500).json({error:error.message});
     }
 };

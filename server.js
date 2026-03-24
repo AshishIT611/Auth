@@ -10,4 +10,4 @@ app.use("/api/auth",authRoutes);
 connectDB();
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`);
-});
+}); 
